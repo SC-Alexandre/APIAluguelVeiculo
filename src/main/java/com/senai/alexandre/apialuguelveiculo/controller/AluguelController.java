@@ -15,23 +15,23 @@ public class AluguelController {
     @Autowired
     private AluguelService aluguelService;
 
-    @GetMapping
-    public List<Aluguel> getAllAlugueis() {
-        return aluguelService.findAll();
-    }
-
     @PostMapping
-    public Aluguel saveAluguel(@RequestBody Aluguel aluguel){
-        return aluguelService.save(aluguel);
+    public void registrarAluguel(@RequestBody Aluguel aluguel) {
+        aluguelService.registrarAluguel(aluguel);
     }
 
     @PutMapping
-    public Aluguel updateAluguel(@RequestBody Aluguel aluguel) {
-        return aluguelService.update(aluguel);
+    public Aluguel updateAluguel(@PathVariable Integer id) {
+        return aluguelService.devolverVeiculo(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAluguel(@PathVariable Integer id) {
-        this.aluguelService.delete(id);
+    @GetMapping("/ativos")
+    public List<Aluguel> listarAlugueisAtivos() {
+        return aluguelService.findAlugueisAtivos();
+    }
+
+    @GetMapping("/geral")
+    public List<Aluguel> getAllAlugueis() {
+        return aluguelService.findAll();
     }
 }
