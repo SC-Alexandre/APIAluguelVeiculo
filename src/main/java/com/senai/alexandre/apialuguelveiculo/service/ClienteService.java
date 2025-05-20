@@ -21,9 +21,14 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
-    public Cliente update(Cliente cliente) {
-        return this.save(cliente);
+    public Cliente update(Integer id, Cliente cliente) {
+        if (!clienteRepository.existsById(id)) {
+            throw new RuntimeException("Cliente não encontrado para edição.");
+        }
+        cliente.setId(id); // Garante que o ID seja o correto (evita alteração indevida via body)
+        return clienteRepository.save(cliente);
     }
+
 
     public void delete(Integer id) {
         if (!clienteRepository.existsById(id)) {

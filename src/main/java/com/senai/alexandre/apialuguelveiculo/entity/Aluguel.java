@@ -25,6 +25,9 @@ public class Aluguel {
     @Column(name = "DataFim", nullable = false)
     private LocalDate dataFim;
 
+    @Column(name = "DataDevolucao")
+    private LocalDate dataDevolucao;
+
     public Aluguel() {
     }
 

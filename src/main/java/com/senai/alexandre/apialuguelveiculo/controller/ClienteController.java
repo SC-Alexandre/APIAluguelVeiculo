@@ -25,9 +25,9 @@ public class ClienteController {
         return clienteService.save(cliente);
     }
 
-    @PutMapping
-    public Cliente updateCliente(@RequestBody Cliente cliente) {
-        return clienteService.update(cliente);
+    @PutMapping("/{id}")
+    public Cliente update(@PathVariable Integer id, @RequestBody Cliente cliente) {
+        return clienteService.update(id, cliente);
     }
 
     @DeleteMapping("/{id}")

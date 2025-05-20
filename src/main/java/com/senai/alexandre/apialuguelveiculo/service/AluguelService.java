@@ -21,17 +21,21 @@ public class AluguelService {
     private VeiculoRepository veiculoRepository;
 
     public Aluguel registrarAluguel(Aluguel aluguel) {
-        Veiculo veiculo = veiculoRepository.findById(aluguel.getVeiculo().getId())
-                .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+        Integer veiculoId = aluguel.getVeiculo().getId();
+
+        Veiculo veiculo = veiculoRepository.findById(veiculoId)
+                .orElseThrow(() -> new RuntimeException("Veículo com ID " + veiculoId + " não encontrado."));
 
         if (!veiculo.isDisponivel()) {
-            throw new RuntimeException("Veículo indisponível");
+            throw new RuntimeException("Veículo com ID " + veiculoId + " está indisponível para aluguel.");
         }
 
         veiculo.setDisponivel(false);
         veiculoRepository.save(veiculo);
+
         return aluguelRepository.save(aluguel);
     }
+
 
     public Aluguel devolverVeiculo(Integer id) {
         Optional<Aluguel> aluguelOpt = aluguelRepository.findById(id);
