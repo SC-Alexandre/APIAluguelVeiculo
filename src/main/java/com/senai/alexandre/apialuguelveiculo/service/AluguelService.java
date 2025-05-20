@@ -6,10 +6,8 @@ import com.senai.alexandre.apialuguelveiculo.repository.AluguelRepository;
 import com.senai.alexandre.apialuguelveiculo.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AluguelService {
@@ -38,21 +36,13 @@ public class AluguelService {
 
 
     public Aluguel devolverVeiculo(Integer id) {
-        Optional<Aluguel> aluguelOpt = aluguelRepository.findById(id);
-        if (!aluguelOpt.isPresent()) {
-            throw new RuntimeException("Aluguel não encontrado");
-        }
-        Aluguel aluguel = aluguelOpt.get();
-        if (aluguel.getDataInicio() != null) {
-            throw new RuntimeException("Veículo já foi devolvido");
-        }
-        aluguel.setDataFim(LocalDate.now());
+        Aluguel aluguel = aluguelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aluguel não encontrado"));
 
         Veiculo veiculo = aluguel.getVeiculo();
         veiculo.setDisponivel(true);
         veiculoRepository.save(veiculo);
-
-        return aluguelRepository.save(aluguel);
+        return aluguel;
     }
 
     public List<Aluguel>findAll(){

@@ -39,6 +39,14 @@ public class Aluguel {
         this.dataFim = dataFim;
     }
 
+    public LocalDate getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public void setDataDevolucao(LocalDate dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
+    }
+
     public Integer getId() {
         return id;
     }

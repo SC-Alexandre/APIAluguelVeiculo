@@ -20,7 +20,7 @@ public class AluguelController {
         aluguelService.registrarAluguel(aluguel);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Aluguel updateAluguel(@PathVariable Integer id) {
         return aluguelService.devolverVeiculo(id);
     }
